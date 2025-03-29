@@ -93,7 +93,7 @@ langfuse.create_prompt(
     name="meeting_minute_generation_v4",
     prompt="Extract the key information from this text and return it in JSON format. Use the following schema: {{json_schema}}",
     config={
-        "model": "gpt-4-turbo",
+        "model": "gpt-3.5-turbo",
         "temperature": 0.1, # Just summary no create more information
         "json_schema": {
         "type": "object",
@@ -139,7 +139,7 @@ prompt = langfuse.get_prompt("meeting_minute_generation_v4")
 def detect_language(text: str) -> str:
     try:
         response = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-3.5-turbo",
             temperature=0.0,
             messages=[
                 {"role": "system", "content": "Detect the language of the following text and return only the language code (e.g., 'en' for English, 'vi' for Vietnamese)."},
@@ -159,7 +159,7 @@ def translate_to_english(text: str) -> str:
     print(f"Detected language: {language}. Translating to English...")
 
     response = openai.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         max_tokens=2000,  
         messages=[
             {"role": "system", "content": "Translate the following text to English in a formal style."},
@@ -168,7 +168,7 @@ def translate_to_english(text: str) -> str:
     )
     return response.choices[0].message.content.strip()
 
-tokenizer = tiktoken.encoding_for_model("gpt-4-turbo")
+tokenizer = tiktoken.encoding_for_model("gpt-3.5-turbo")
 # Function to split long transcripts into smaller chunks
 def split_transcript(transcript: str, max_tokens: int = 2000) -> list:
     """
