@@ -2,3 +2,4 @@ langfuse
 tiktoken
 openai
 python-dotenv
+gradio
